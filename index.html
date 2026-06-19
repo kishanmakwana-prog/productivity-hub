@@ -3,241 +3,668 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#16846d">
-    <title>Daily Useful Tools</title>
+    <meta name="theme-color" content="#2563eb">
+    <title>Productivity Hub</title>
     <link rel="stylesheet" href="styles.css">
   </head>
-  <body>
-    <header class="topbar">
-      <div>
-        <p class="eyebrow">Daily workspace</p>
-        <h1>Daily Useful Tools</h1>
-      </div>
-      <div class="top-actions">
-        <div class="clock" aria-live="polite">
-          <strong id="timeNow">--:--</strong>
-          <span id="dateNow">Today</span>
+  <body data-theme="ocean">
+    <div class="app-frame">
+      <aside class="sidebar" aria-label="Main navigation">
+        <div class="brand">
+          <div class="brand-mark">PH</div>
+          <div>
+            <p>All-in-one</p>
+            <h1>Productivity Hub</h1>
+          </div>
         </div>
-        <button id="themeToggle" class="button ghost" type="button">Dark</button>
-      </div>
-    </header>
 
-    <main class="app-shell">
-      <aside class="side-panel">
-        <label class="search-label" for="toolSearch">Find a tool</label>
-        <input id="toolSearch" class="input" type="search" placeholder="Search tools...">
-        <nav class="tool-nav" aria-label="Tools">
-          <a href="#tasks">Tasks</a>
-          <a href="#notes">Notes</a>
-          <a href="#calculator">Calculator</a>
-          <a href="#converter">Converter</a>
-          <a href="#money">Money</a>
-          <a href="#timer">Timer</a>
-          <a href="#password">Password</a>
-          <a href="#text">Text</a>
-          <a href="#decision">Decision</a>
+        <label class="search-box" for="globalSearch">
+          <span>Search</span>
+          <input id="globalSearch" type="search" placeholder="Find tools, notes, tasks">
+        </label>
+
+        <nav class="nav-list">
+          <button class="nav-item active" type="button" data-section="dashboard"><span>Dashboard</span></button>
+          <button class="nav-item" type="button" data-section="tasks"><span>Tasks</span></button>
+          <button class="nav-item" type="button" data-section="planner"><span>Calendar</span></button>
+          <button class="nav-item" type="button" data-section="expenses"><span>Expenses</span></button>
+          <button class="nav-item" type="button" data-section="reminders"><span>Reminders</span></button>
+          <button class="nav-item" type="button" data-section="notes"><span>Notes</span></button>
+          <button class="nav-item" type="button" data-section="analytics"><span>Analytics</span></button>
+          <button class="nav-item" type="button" data-section="tools"><span>Tools</span></button>
+          <button class="nav-item" type="button" data-section="ai"><span>AI Helpers</span></button>
+          <button class="nav-item" type="button" data-section="data"><span>Data</span></button>
         </nav>
+
+        <div class="sidebar-footer">
+          <label for="themeSelect">Accent theme</label>
+          <select id="themeSelect" class="input compact">
+            <option value="ocean">Ocean</option>
+            <option value="emerald">Emerald</option>
+            <option value="violet">Violet</option>
+            <option value="sunset">Sunset</option>
+          </select>
+        </div>
       </aside>
 
-      <section class="tool-grid" id="tools">
-        <article class="tool-card wide" id="tasks" data-tool="tasks checklist todo today">
-          <div class="card-head">
-            <div>
-              <p class="eyebrow">Plan</p>
-              <h2>Task List</h2>
+      <div class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow" id="sectionEyebrow">Dashboard</p>
+            <h2 id="sectionTitle">Your day at a glance</h2>
+          </div>
+          <div class="top-actions">
+            <div class="clock-card" aria-live="polite">
+              <strong id="timeNow">--:--</strong>
+              <span id="dateNow">Today</span>
             </div>
-            <button id="clearDone" class="button subtle" type="button">Clear done</button>
+            <button id="quickAddTask" class="button primary" type="button">Quick task</button>
+            <button id="themeModeToggle" class="button ghost" type="button">Dark</button>
           </div>
-          <form id="taskForm" class="inline-form">
-            <input id="taskInput" class="input" type="text" placeholder="Add a task for today" autocomplete="off">
-            <button class="button primary" type="submit">Add</button>
-          </form>
-          <div class="segmented" role="group" aria-label="Task filter">
-            <button class="segment active" type="button" data-filter="all">All</button>
-            <button class="segment" type="button" data-filter="open">Open</button>
-            <button class="segment" type="button" data-filter="done">Done</button>
-          </div>
-          <ul id="taskList" class="task-list" aria-live="polite"></ul>
-          <p id="taskEmpty" class="empty-state">No tasks yet. Add one and make the day behave.</p>
-        </article>
+        </header>
 
-        <article class="tool-card wide" id="notes" data-tool="notes memo writing save copy">
-          <div class="card-head">
-            <div>
-              <p class="eyebrow">Capture</p>
-              <h2>Quick Notes</h2>
-            </div>
-            <div class="button-row">
-              <button id="copyNote" class="button subtle" type="button">Copy</button>
-              <button id="clearNote" class="button ghost" type="button">Clear</button>
-            </div>
-          </div>
-          <textarea id="notePad" class="textarea note-area" placeholder="Write anything you need to remember..."></textarea>
-          <p class="status-line"><span id="noteStatus">Saved locally</span><span id="noteCount">0 words</span></p>
-        </article>
-
-        <article class="tool-card" id="calculator" data-tool="calculator maths arithmetic percentage">
-          <div class="card-head">
-            <div>
-              <p class="eyebrow">Numbers</p>
-              <h2>Calculator</h2>
-            </div>
-            <button id="calcClear" class="button ghost" type="button">C</button>
-          </div>
-          <input id="calcDisplay" class="input calc-display" type="text" inputmode="decimal" aria-label="Calculator display" placeholder="0">
-          <div class="calc-grid" aria-label="Calculator buttons">
-            <button type="button" data-calc="7">7</button>
-            <button type="button" data-calc="8">8</button>
-            <button type="button" data-calc="9">9</button>
-            <button type="button" data-calc="/">/</button>
-            <button type="button" data-calc="4">4</button>
-            <button type="button" data-calc="5">5</button>
-            <button type="button" data-calc="6">6</button>
-            <button type="button" data-calc="*">x</button>
-            <button type="button" data-calc="1">1</button>
-            <button type="button" data-calc="2">2</button>
-            <button type="button" data-calc="3">3</button>
-            <button type="button" data-calc="-">-</button>
-            <button type="button" data-calc="0">0</button>
-            <button type="button" data-calc=".">.</button>
-            <button type="button" data-calc="=" class="accent">=</button>
-            <button type="button" data-calc="+">+</button>
-          </div>
-        </article>
-
-        <article class="tool-card" id="converter" data-tool="unit converter length weight temperature">
-          <div class="card-head">
-            <div>
-              <p class="eyebrow">Convert</p>
-              <h2>Unit Converter</h2>
-            </div>
-          </div>
-          <label class="field-label" for="convertType">Type</label>
-          <select id="convertType" class="input">
-            <option value="length">Length</option>
-            <option value="weight">Weight</option>
-            <option value="temperature">Temperature</option>
-          </select>
-          <div class="split">
-            <div>
-              <label class="field-label" for="convertInput">From</label>
-              <input id="convertInput" class="input" type="number" value="1" step="any">
-              <select id="fromUnit" class="input compact"></select>
-            </div>
-            <div>
-              <label class="field-label" for="convertOutput">To</label>
-              <input id="convertOutput" class="input" type="text" readonly>
-              <select id="toUnit" class="input compact"></select>
-            </div>
-          </div>
-        </article>
-
-        <article class="tool-card" id="money" data-tool="money tip split bill expense percentage">
-          <div class="card-head">
-            <div>
-              <p class="eyebrow">Money</p>
-              <h2>Tip and Split</h2>
-            </div>
-          </div>
-          <div class="form-stack">
-            <label class="field-label" for="billAmount">Bill amount</label>
-            <input id="billAmount" class="input" type="number" min="0" step="0.01" placeholder="0.00">
-            <label class="field-label" for="tipPercent">Tip percent</label>
-            <input id="tipPercent" class="input" type="number" min="0" step="1" value="10">
-            <label class="field-label" for="splitPeople">People</label>
-            <input id="splitPeople" class="input" type="number" min="1" step="1" value="1">
-          </div>
-          <div class="result-box">
-            <span>Tip: <strong id="tipResult">0.00</strong></span>
-            <span>Total: <strong id="totalResult">0.00</strong></span>
-            <span>Each: <strong id="eachResult">0.00</strong></span>
-          </div>
-        </article>
-
-        <article class="tool-card wide" id="timer" data-tool="timer stopwatch focus countdown laps">
-          <div class="card-head">
-            <div>
-              <p class="eyebrow">Focus</p>
-              <h2>Timer and Stopwatch</h2>
-            </div>
-          </div>
-          <div class="two-tools">
-            <section aria-labelledby="timerTitle">
-              <h3 id="timerTitle">Countdown</h3>
-              <div class="timer-display" id="timerDisplay">05:00</div>
-              <div class="inline-form">
-                <input id="timerMinutes" class="input" type="number" min="1" value="5" aria-label="Timer minutes">
-                <button id="timerStart" class="button primary" type="button">Start</button>
-                <button id="timerReset" class="button ghost" type="button">Reset</button>
+        <main class="content">
+          <section id="dashboard" class="section active" data-title="Your day at a glance" data-keywords="dashboard stats overview">
+            <div class="dashboard-hero card">
+              <div>
+                <p class="eyebrow">Today</p>
+                <h2 id="dailyGreeting">Ready to plan the day?</h2>
+                <p class="muted">Tasks, notes, calendar, reminders, expenses, analytics, and daily tools are now in one local workspace.</p>
               </div>
-            </section>
-            <section aria-labelledby="stopwatchTitle">
-              <h3 id="stopwatchTitle">Stopwatch</h3>
-              <div class="timer-display" id="stopwatchDisplay">00:00.0</div>
-              <div class="button-row">
-                <button id="stopwatchStart" class="button primary" type="button">Start</button>
-                <button id="stopwatchLap" class="button subtle" type="button">Lap</button>
-                <button id="stopwatchReset" class="button ghost" type="button">Reset</button>
+              <div class="hero-meter">
+                <div class="ring" id="todayRing">0%</div>
+                <span>Today's completion</span>
               </div>
-              <ol id="lapList" class="lap-list"></ol>
-            </section>
-          </div>
-        </article>
-
-        <article class="tool-card" id="password" data-tool="password generator security random">
-          <div class="card-head">
-            <div>
-              <p class="eyebrow">Secure</p>
-              <h2>Password Generator</h2>
             </div>
-            <button id="copyPassword" class="button subtle" type="button">Copy</button>
-          </div>
-          <input id="passwordOutput" class="input mono" type="text" readonly>
-          <label class="field-label" for="passwordLength">Length: <span id="passwordLengthValue">16</span></label>
-          <input id="passwordLength" class="range" type="range" min="8" max="40" value="16">
-          <div class="check-grid">
-            <label><input id="useUpper" type="checkbox" checked> Uppercase</label>
-            <label><input id="useLower" type="checkbox" checked> Lowercase</label>
-            <label><input id="useNumbers" type="checkbox" checked> Numbers</label>
-            <label><input id="useSymbols" type="checkbox" checked> Symbols</label>
-          </div>
-          <button id="generatePassword" class="button primary full" type="button">Generate</button>
-        </article>
 
-        <article class="tool-card wide" id="text" data-tool="text tools word count uppercase lowercase sentence copy">
-          <div class="card-head">
-            <div>
-              <p class="eyebrow">Write</p>
-              <h2>Text Tools</h2>
+            <div class="stats-grid">
+              <article class="stat-card">
+                <span>Total tasks</span>
+                <strong id="statTotalTasks">0</strong>
+              </article>
+              <article class="stat-card">
+                <span>Completed</span>
+                <strong id="statCompletedTasks">0</strong>
+              </article>
+              <article class="stat-card">
+                <span>Pending</span>
+                <strong id="statPendingTasks">0</strong>
+              </article>
+              <article class="stat-card">
+                <span>Notes</span>
+                <strong id="statNotes">0</strong>
+              </article>
+              <article class="stat-card">
+                <span>This month</span>
+                <strong id="statMonthExpense">0.00</strong>
+              </article>
+              <article class="stat-card">
+                <span>Current streak</span>
+                <strong id="statCurrentStreak">0d</strong>
+              </article>
             </div>
-            <button id="copyText" class="button subtle" type="button">Copy</button>
-          </div>
-          <textarea id="textInput" class="textarea" placeholder="Paste text here..."></textarea>
-          <div class="button-row wrap">
-            <button class="button subtle" type="button" data-text-action="upper">UPPERCASE</button>
-            <button class="button subtle" type="button" data-text-action="lower">lowercase</button>
-            <button class="button subtle" type="button" data-text-action="title">Title Case</button>
-            <button class="button ghost" type="button" data-text-action="trim">Trim spaces</button>
-          </div>
-          <p class="status-line"><span id="textStats">0 chars, 0 words</span><span id="readingTime">0 min read</span></p>
-        </article>
 
-        <article class="tool-card" id="decision" data-tool="decision picker random choice list">
-          <div class="card-head">
-            <div>
-              <p class="eyebrow">Choose</p>
-              <h2>Decision Picker</h2>
+            <div class="grid two">
+              <article class="card">
+                <div class="card-head">
+                  <div>
+                    <p class="eyebrow">Progress</p>
+                    <h3>Productivity overview</h3>
+                  </div>
+                  <span class="pill" id="dashboardScore">0% focus</span>
+                </div>
+                <div class="progress-stack">
+                  <label>All tasks <span id="overallProgressText">0%</span></label>
+                  <div class="progress"><span id="overallProgressBar"></span></div>
+                  <label>Today <span id="todayProgressText">0%</span></label>
+                  <div class="progress"><span id="todayProgressBar"></span></div>
+                </div>
+                <canvas id="dashboardTrendChart" class="chart" height="180" aria-label="Productivity trend"></canvas>
+              </article>
+
+              <article class="card">
+                <div class="card-head">
+                  <div>
+                    <p class="eyebrow">Next</p>
+                    <h3>Upcoming tasks and events</h3>
+                  </div>
+                </div>
+                <div id="dashboardUpcoming" class="mini-list"></div>
+              </article>
             </div>
-          </div>
-          <textarea id="decisionInput" class="textarea small" placeholder="Tea&#10;Coffee&#10;Juice"></textarea>
-          <button id="pickDecision" class="button primary full" type="button">Pick one</button>
-          <div id="decisionResult" class="result-highlight">Add options, then pick.</div>
-        </article>
+          </section>
 
-        <p id="noTools" class="empty-state hidden">No tools match that search.</p>
-      </section>
-    </main>
+          <section id="tasks" class="section" data-title="Task management" data-keywords="tasks todo priorities due dates categories filters sorting streak">
+            <div class="section-grid">
+              <article class="card span-2">
+                <div class="card-head">
+                  <div>
+                    <p class="eyebrow">Tasks</p>
+                    <h3>Plan, prioritize, complete</h3>
+                  </div>
+                  <button id="clearCompletedTasks" class="button subtle" type="button">Clear completed</button>
+                </div>
 
+                <form id="taskForm" class="task-form">
+                  <input id="taskTitle" class="input" type="text" placeholder="Add a task" autocomplete="off" required>
+                  <select id="taskPriority" class="input">
+                    <option value="High">High</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="Low">Low</option>
+                  </select>
+                  <input id="taskCategory" class="input" type="text" placeholder="Category" list="taskCategoryList">
+                  <input id="taskDueDate" class="input" type="date">
+                  <button class="button primary" type="submit">Add task</button>
+                </form>
+                <datalist id="taskCategoryList"></datalist>
+
+                <div class="toolbar">
+                  <select id="taskStatusFilter" class="input compact">
+                    <option value="all">All status</option>
+                    <option value="open">Pending</option>
+                    <option value="done">Completed</option>
+                    <option value="today">Due today</option>
+                    <option value="overdue">Overdue</option>
+                  </select>
+                  <select id="taskPriorityFilter" class="input compact">
+                    <option value="all">All priorities</option>
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                  </select>
+                  <select id="taskCategoryFilter" class="input compact">
+                    <option value="all">All categories</option>
+                  </select>
+                  <select id="taskSort" class="input compact">
+                    <option value="due">Sort by due date</option>
+                    <option value="priority">Sort by priority</option>
+                    <option value="newest">Sort by newest</option>
+                    <option value="oldest">Sort by oldest</option>
+                  </select>
+                </div>
+
+                <ul id="taskList" class="task-list"></ul>
+                <p id="taskEmpty" class="empty-state">No tasks match this view.</p>
+              </article>
+
+              <article class="card">
+                <p class="eyebrow">Progress</p>
+                <h3>Completion</h3>
+                <div class="metric-line"><span>All tasks</span><strong id="taskCompletionLabel">0%</strong></div>
+                <div class="progress large"><span id="taskCompletionBar"></span></div>
+                <div class="metric-line"><span>Today</span><strong id="todayCompletionLabel">0%</strong></div>
+                <div class="progress large"><span id="todayCompletionBar"></span></div>
+              </article>
+
+              <article class="card">
+                <p class="eyebrow">Streaks</p>
+                <h3>Productivity streak</h3>
+                <div class="streak-grid">
+                  <div><span>7-day</span><strong id="streak7">0</strong></div>
+                  <div><span>30-day</span><strong id="streak30">0</strong></div>
+                  <div><span>All-time</span><strong id="streakAll">0</strong></div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section id="planner" class="section" data-title="Calendar and planner" data-keywords="calendar planner daily weekly meetings events dates schedule">
+            <div class="grid two">
+              <article class="card">
+                <div class="card-head">
+                  <div>
+                    <p class="eyebrow">Calendar</p>
+                    <h3 id="calendarTitle">Month</h3>
+                  </div>
+                  <div class="button-row">
+                    <button id="prevMonth" class="button ghost" type="button">Prev</button>
+                    <button id="todayMonth" class="button subtle" type="button">Today</button>
+                    <button id="nextMonth" class="button ghost" type="button">Next</button>
+                  </div>
+                </div>
+                <div class="calendar-weekdays">
+                  <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                </div>
+                <div id="calendarGrid" class="calendar-grid"></div>
+              </article>
+
+              <article class="card">
+                <div class="card-head">
+                  <div>
+                    <p class="eyebrow">Daily planner</p>
+                    <h3 id="plannerDateLabel">Today</h3>
+                  </div>
+                  <input id="plannerDate" class="input compact" type="date">
+                </div>
+                <label class="field-label" for="dailyFocus">Top focus</label>
+                <textarea id="dailyFocus" class="textarea small" placeholder="Most important outcomes"></textarea>
+                <label class="field-label" for="dailySchedule">Schedule</label>
+                <textarea id="dailySchedule" class="textarea small" placeholder="9:00 Meeting&#10;11:00 Deep work"></textarea>
+              </article>
+            </div>
+
+            <div class="grid two">
+              <article class="card">
+                <div class="card-head">
+                  <div>
+                    <p class="eyebrow">Weekly planner</p>
+                    <h3 id="weekLabel">This week</h3>
+                  </div>
+                  <input id="weekPicker" class="input compact" type="date">
+                </div>
+                <div id="weeklyPlanner" class="weekly-planner"></div>
+              </article>
+
+              <article class="card">
+                <div class="card-head">
+                  <div>
+                    <p class="eyebrow">Important dates</p>
+                    <h3>Events and meetings</h3>
+                  </div>
+                </div>
+                <form id="eventForm" class="event-form">
+                  <input id="eventTitle" class="input" type="text" placeholder="Event or meeting" required>
+                  <input id="eventDate" class="input" type="date" required>
+                  <input id="eventTime" class="input" type="time">
+                  <select id="eventType" class="input">
+                    <option value="Event">Event</option>
+                    <option value="Meeting">Meeting</option>
+                    <option value="Birthday">Birthday</option>
+                    <option value="Deadline">Deadline</option>
+                  </select>
+                  <label class="check"><input id="eventReminder" type="checkbox"> Remind me</label>
+                  <button class="button primary" type="submit">Save event</button>
+                </form>
+                <div id="eventList" class="mini-list"></div>
+              </article>
+            </div>
+          </section>
+
+          <section id="expenses" class="section" data-title="Expense tracker" data-keywords="expenses money monthly summary category analytics csv">
+            <div class="grid two">
+              <article class="card">
+                <div class="card-head">
+                  <div>
+                    <p class="eyebrow">Expenses</p>
+                    <h3>Daily expense entry</h3>
+                  </div>
+                  <button id="exportExpensesCsv" class="button subtle" type="button">Export CSV</button>
+                </div>
+                <form id="expenseForm" class="expense-form">
+                  <input id="expenseDate" class="input" type="date" required>
+                  <input id="expenseAmount" class="input" type="number" min="0" step="0.01" placeholder="Amount" required>
+                  <input id="expenseCategory" class="input" type="text" placeholder="Category" list="expenseCategoryList" required>
+                  <input id="expenseNote" class="input" type="text" placeholder="Note">
+                  <button class="button primary" type="submit">Add expense</button>
+                </form>
+                <datalist id="expenseCategoryList"></datalist>
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr><th>Date</th><th>Category</th><th>Note</th><th>Amount</th><th></th></tr>
+                    </thead>
+                    <tbody id="expenseTable"></tbody>
+                  </table>
+                </div>
+              </article>
+
+              <article class="card">
+                <div class="card-head">
+                  <div>
+                    <p class="eyebrow">Summary</p>
+                    <h3>Monthly expense summary</h3>
+                  </div>
+                  <input id="expenseMonth" class="input compact" type="month">
+                </div>
+                <div class="stats-grid compact-grid">
+                  <article class="stat-card"><span>Total</span><strong id="monthExpenseTotal">0.00</strong></article>
+                  <article class="stat-card"><span>Entries</span><strong id="monthExpenseCount">0</strong></article>
+                  <article class="stat-card"><span>Top category</span><strong id="topExpenseCategory">None</strong></article>
+                </div>
+                <canvas id="expenseCategoryChart" class="chart" height="220" aria-label="Category-wise expense chart"></canvas>
+              </article>
+            </div>
+          </section>
+
+          <section id="reminders" class="section" data-title="Smart reminders" data-keywords="notifications water break medicine custom reminders">
+            <div class="grid two">
+              <article class="card">
+                <div class="card-head">
+                  <div>
+                    <p class="eyebrow">Notifications</p>
+                    <h3>Smart reminder system</h3>
+                  </div>
+                  <button id="enableNotifications" class="button primary" type="button">Enable notifications</button>
+                </div>
+                <form id="reminderForm" class="reminder-form">
+                  <select id="reminderType" class="input">
+                    <option value="Water">Water</option>
+                    <option value="Break">Break</option>
+                    <option value="Medicine">Medicine</option>
+                    <option value="Custom">Custom</option>
+                  </select>
+                  <input id="reminderTitle" class="input" type="text" placeholder="Reminder title" required>
+                  <input id="reminderTime" class="input" type="time">
+                  <input id="reminderInterval" class="input" type="number" min="5" step="5" value="60" aria-label="Repeat every minutes">
+                  <button class="button primary" type="submit">Create reminder</button>
+                </form>
+                <div id="reminderList" class="mini-list"></div>
+              </article>
+
+              <article class="card">
+                <p class="eyebrow">Wellbeing</p>
+                <h3>Water and break tracker</h3>
+                <div class="water-card">
+                  <div>
+                    <span>Water today</span>
+                    <strong id="waterCount">0 / 8</strong>
+                  </div>
+                  <div class="button-row">
+                    <button id="addWater" class="button subtle" type="button">Add glass</button>
+                    <button id="resetWater" class="button ghost" type="button">Reset</button>
+                  </div>
+                </div>
+                <div class="button-row wrap">
+                  <button id="presetWaterReminder" class="button subtle" type="button">Water every 60 min</button>
+                  <button id="presetBreakReminder" class="button subtle" type="button">Break every 45 min</button>
+                  <button id="presetMedicineReminder" class="button subtle" type="button">Medicine at 9 PM</button>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section id="notes" class="section" data-title="Notes system" data-keywords="notes rich text categories favorite search autosave">
+            <div class="notes-layout">
+              <article class="card notes-list-panel">
+                <div class="card-head">
+                  <div>
+                    <p class="eyebrow">Notes</p>
+                    <h3>Library</h3>
+                  </div>
+                  <button id="newNote" class="button primary" type="button">New</button>
+                </div>
+                <input id="noteSearch" class="input" type="search" placeholder="Search notes">
+                <select id="noteCategoryFilter" class="input">
+                  <option value="all">All categories</option>
+                </select>
+                <div id="notesList" class="notes-list"></div>
+              </article>
+
+              <article class="card note-editor-panel">
+                <div class="card-head">
+                  <div>
+                    <p class="eyebrow">Rich text</p>
+                    <h3>Auto-save note</h3>
+                  </div>
+                  <div class="button-row">
+                    <button id="favoriteNote" class="button subtle" type="button">Favorite</button>
+                    <button id="copyNote" class="button subtle" type="button">Copy</button>
+                    <button id="deleteNote" class="button ghost" type="button">Delete</button>
+                  </div>
+                </div>
+                <input id="noteTitle" class="input title-input" type="text" placeholder="Untitled note">
+                <input id="noteCategory" class="input" type="text" placeholder="Category">
+                <div class="editor-toolbar">
+                  <button type="button" data-command="bold">Bold</button>
+                  <button type="button" data-command="italic">Italic</button>
+                  <button type="button" data-command="underline">Underline</button>
+                  <button type="button" data-command="insertUnorderedList">Bullets</button>
+                </div>
+                <div id="noteEditor" class="rich-editor" contenteditable="true" role="textbox" aria-multiline="true"></div>
+                <p class="status-line"><span id="noteStatus">Auto-saved</span><span id="noteMeta">0 words</span></p>
+              </article>
+            </div>
+          </section>
+
+          <section id="analytics" class="section" data-title="Analytics and reports" data-keywords="analytics charts reports productivity expense weekly monthly">
+            <div class="grid two">
+              <article class="card">
+                <p class="eyebrow">Productivity</p>
+                <h3>Task completion trends</h3>
+                <canvas id="taskTrendChart" class="chart" height="240" aria-label="Task completion trend chart"></canvas>
+              </article>
+              <article class="card">
+                <p class="eyebrow">Expenses</p>
+                <h3>Expense analysis</h3>
+                <canvas id="expenseTrendChart" class="chart" height="240" aria-label="Expense analysis chart"></canvas>
+              </article>
+            </div>
+            <article class="card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Reports</p>
+                  <h3>Weekly and monthly reports</h3>
+                </div>
+                <button id="refreshReports" class="button subtle" type="button">Refresh</button>
+              </div>
+              <div id="reportsGrid" class="reports-grid"></div>
+            </article>
+          </section>
+
+          <section id="tools" class="section" data-title="Useful tools" data-keywords="calculator converter timer password text decision age emi gst bmi qr barcode">
+            <div class="tool-masonry">
+              <article class="card tool-card">
+                <div class="card-head">
+                  <div><p class="eyebrow">Numbers</p><h3>Calculator</h3></div>
+                  <button id="calcClear" class="button ghost" type="button">C</button>
+                </div>
+                <input id="calcDisplay" class="input calc-display" type="text" inputmode="decimal" placeholder="0">
+                <div class="calc-grid">
+                  <button type="button" data-calc="7">7</button><button type="button" data-calc="8">8</button><button type="button" data-calc="9">9</button><button type="button" data-calc="/">/</button>
+                  <button type="button" data-calc="4">4</button><button type="button" data-calc="5">5</button><button type="button" data-calc="6">6</button><button type="button" data-calc="*">x</button>
+                  <button type="button" data-calc="1">1</button><button type="button" data-calc="2">2</button><button type="button" data-calc="3">3</button><button type="button" data-calc="-">-</button>
+                  <button type="button" data-calc="0">0</button><button type="button" data-calc=".">.</button><button type="button" data-calc="=" class="accent">=</button><button type="button" data-calc="+">+</button>
+                </div>
+              </article>
+
+              <article class="card tool-card">
+                <p class="eyebrow">Convert</p>
+                <h3>Unit converter</h3>
+                <select id="convertType" class="input">
+                  <option value="length">Length</option>
+                  <option value="weight">Weight</option>
+                  <option value="temperature">Temperature</option>
+                </select>
+                <div class="split">
+                  <div><input id="convertInput" class="input" type="number" value="1" step="any"><select id="fromUnit" class="input"></select></div>
+                  <div><input id="convertOutput" class="input" type="text" readonly><select id="toUnit" class="input"></select></div>
+                </div>
+              </article>
+
+              <article class="card tool-card">
+                <p class="eyebrow">Money</p>
+                <h3>Tip and split</h3>
+                <input id="billAmount" class="input" type="number" min="0" step="0.01" placeholder="Bill amount">
+                <input id="tipPercent" class="input" type="number" min="0" step="1" value="10" placeholder="Tip percent">
+                <input id="splitPeople" class="input" type="number" min="1" step="1" value="1" placeholder="People">
+                <div class="result-box"><span>Tip <strong id="tipResult">0.00</strong></span><span>Total <strong id="totalResult">0.00</strong></span><span>Each <strong id="eachResult">0.00</strong></span></div>
+              </article>
+
+              <article class="card tool-card wide-tool">
+                <p class="eyebrow">Focus</p>
+                <h3>Timer and stopwatch</h3>
+                <div class="grid two tight">
+                  <div>
+                    <div class="timer-display" id="timerDisplay">05:00</div>
+                    <div class="inline-form"><input id="timerMinutes" class="input" type="number" min="1" value="5"><button id="timerStart" class="button primary" type="button">Start</button><button id="timerReset" class="button ghost" type="button">Reset</button></div>
+                  </div>
+                  <div>
+                    <div class="timer-display" id="stopwatchDisplay">00:00.0</div>
+                    <div class="button-row wrap"><button id="stopwatchStart" class="button primary" type="button">Start</button><button id="stopwatchLap" class="button subtle" type="button">Lap</button><button id="stopwatchReset" class="button ghost" type="button">Reset</button></div>
+                    <ol id="lapList" class="lap-list"></ol>
+                  </div>
+                </div>
+              </article>
+
+              <article class="card tool-card">
+                <div class="card-head"><div><p class="eyebrow">Secure</p><h3>Password generator</h3></div><button id="copyPassword" class="button subtle" type="button">Copy</button></div>
+                <input id="passwordOutput" class="input mono" type="text" readonly>
+                <label class="field-label" for="passwordLength">Length <span id="passwordLengthValue">16</span></label>
+                <input id="passwordLength" class="range" type="range" min="8" max="40" value="16">
+                <div class="check-grid">
+                  <label><input id="useUpper" type="checkbox" checked> Uppercase</label>
+                  <label><input id="useLower" type="checkbox" checked> Lowercase</label>
+                  <label><input id="useNumbers" type="checkbox" checked> Numbers</label>
+                  <label><input id="useSymbols" type="checkbox" checked> Symbols</label>
+                </div>
+                <button id="generatePassword" class="button primary full" type="button">Generate</button>
+              </article>
+
+              <article class="card tool-card">
+                <div class="card-head"><div><p class="eyebrow">Write</p><h3>Text tools</h3></div><button id="copyText" class="button subtle" type="button">Copy</button></div>
+                <textarea id="textInput" class="textarea" placeholder="Paste text here"></textarea>
+                <div class="button-row wrap">
+                  <button class="button subtle" type="button" data-text-action="upper">Uppercase</button>
+                  <button class="button subtle" type="button" data-text-action="lower">Lowercase</button>
+                  <button class="button subtle" type="button" data-text-action="title">Title case</button>
+                  <button class="button ghost" type="button" data-text-action="trim">Trim</button>
+                </div>
+                <p class="status-line"><span id="textStats">0 chars, 0 words</span><span id="readingTime">0 min read</span></p>
+              </article>
+
+              <article class="card tool-card">
+                <p class="eyebrow">Choose</p>
+                <h3>Decision picker</h3>
+                <textarea id="decisionInput" class="textarea small" placeholder="Tea&#10;Coffee&#10;Juice"></textarea>
+                <button id="pickDecision" class="button primary full" type="button">Pick one</button>
+                <div id="decisionResult" class="result-highlight">Add options, then pick.</div>
+              </article>
+
+              <article class="card tool-card">
+                <p class="eyebrow">Life</p>
+                <h3>Age calculator</h3>
+                <input id="birthDate" class="input" type="date">
+                <button id="calculateAge" class="button primary full" type="button">Calculate age</button>
+                <div id="ageResult" class="result-highlight">Select birth date.</div>
+              </article>
+
+              <article class="card tool-card">
+                <p class="eyebrow">Finance</p>
+                <h3>EMI calculator</h3>
+                <input id="emiPrincipal" class="input" type="number" min="0" placeholder="Loan amount">
+                <input id="emiRate" class="input" type="number" min="0" step="0.01" placeholder="Annual rate %">
+                <input id="emiMonths" class="input" type="number" min="1" placeholder="Months">
+                <button id="calculateEmi" class="button primary full" type="button">Calculate EMI</button>
+                <div id="emiResult" class="result-box"></div>
+              </article>
+
+              <article class="card tool-card">
+                <p class="eyebrow">Tax</p>
+                <h3>GST calculator</h3>
+                <input id="gstAmount" class="input" type="number" min="0" step="0.01" placeholder="Amount">
+                <input id="gstRate" class="input" type="number" min="0" step="0.01" value="18" placeholder="GST %">
+                <select id="gstMode" class="input"><option value="add">Add GST</option><option value="remove">Remove GST</option></select>
+                <button id="calculateGst" class="button primary full" type="button">Calculate GST</button>
+                <div id="gstResult" class="result-box"></div>
+              </article>
+
+              <article class="card tool-card">
+                <p class="eyebrow">Math</p>
+                <h3>Percentage calculator</h3>
+                <input id="percentValue" class="input" type="number" step="any" placeholder="What percent">
+                <input id="percentBase" class="input" type="number" step="any" placeholder="Of number">
+                <input id="percentFrom" class="input" type="number" step="any" placeholder="From value">
+                <input id="percentTo" class="input" type="number" step="any" placeholder="To value">
+                <button id="calculatePercent" class="button primary full" type="button">Calculate</button>
+                <div id="percentResult" class="result-box"></div>
+              </article>
+
+              <article class="card tool-card">
+                <p class="eyebrow">Health</p>
+                <h3>BMI calculator</h3>
+                <input id="bmiWeight" class="input" type="number" min="0" step="0.1" placeholder="Weight kg">
+                <input id="bmiHeight" class="input" type="number" min="0" step="0.1" placeholder="Height cm">
+                <button id="calculateBmi" class="button primary full" type="button">Calculate BMI</button>
+                <div id="bmiResult" class="result-highlight">Enter weight and height.</div>
+              </article>
+
+              <article class="card tool-card">
+                <p class="eyebrow">Code</p>
+                <h3>QR code generator</h3>
+                <input id="qrInput" class="input" type="text" maxlength="32" placeholder="Text or link, max 32 chars">
+                <button id="generateQr" class="button primary full" type="button">Generate QR</button>
+                <canvas id="qrCanvas" class="code-canvas" width="264" height="264" aria-label="Generated QR code"></canvas>
+                <p class="muted small-text">Offline QR supports short text up to 32 bytes.</p>
+              </article>
+
+              <article class="card tool-card">
+                <p class="eyebrow">Code</p>
+                <h3>Barcode generator</h3>
+                <input id="barcodeInput" class="input" type="text" placeholder="CODE39 text">
+                <button id="generateBarcode" class="button primary full" type="button">Generate barcode</button>
+                <div id="barcodeOutput" class="barcode-output" aria-label="Generated barcode"></div>
+              </article>
+            </div>
+          </section>
+
+          <section id="ai" class="section" data-title="AI productivity helpers" data-keywords="ai note summarizer task generator writing assistant suggestions">
+            <div class="grid two">
+              <article class="card">
+                <p class="eyebrow">AI note summarizer</p>
+                <h3>Local smart summary</h3>
+                <textarea id="aiSummaryInput" class="textarea" placeholder="Paste a note or choose from your notes"></textarea>
+                <div class="button-row wrap">
+                  <button id="loadCurrentNoteForAi" class="button subtle" type="button">Use current note</button>
+                  <button id="summarizeNote" class="button primary" type="button">Summarize</button>
+                </div>
+                <div id="summaryResult" class="ai-output">Summary will appear here.</div>
+              </article>
+
+              <article class="card">
+                <p class="eyebrow">AI task generator</p>
+                <h3>Turn a goal into tasks</h3>
+                <input id="taskGoalInput" class="input" type="text" placeholder="Example: prepare monthly sales report">
+                <button id="generateTasksAi" class="button primary full" type="button">Generate tasks</button>
+                <div id="generatedTasks" class="mini-list"></div>
+              </article>
+
+              <article class="card">
+                <p class="eyebrow">AI writing assistant</p>
+                <h3>Improve, shorten, or professionalize</h3>
+                <textarea id="writingInput" class="textarea" placeholder="Write or paste text"></textarea>
+                <div class="button-row wrap">
+                  <button class="button subtle" type="button" data-writing="improve">Improve</button>
+                  <button class="button subtle" type="button" data-writing="shorten">Shorten</button>
+                  <button class="button subtle" type="button" data-writing="professional">Professional</button>
+                </div>
+                <div id="writingOutput" class="ai-output">Writing suggestions will appear here.</div>
+              </article>
+
+              <article class="card">
+                <p class="eyebrow">Smart suggestions</p>
+                <h3>Productivity recommendations</h3>
+                <div id="smartSuggestions" class="mini-list"></div>
+              </article>
+            </div>
+          </section>
+
+          <section id="data" class="section" data-title="Data management" data-keywords="export import backup reset recovery local storage">
+            <div class="grid two">
+              <article class="card">
+                <p class="eyebrow">Backup</p>
+                <h3>Export, import, and local backups</h3>
+                <div class="button-row wrap">
+                  <button id="exportJson" class="button primary" type="button">Export JSON</button>
+                  <label class="button subtle file-button" for="importJson">Import JSON</label>
+                  <input id="importJson" class="hidden-file" type="file" accept="application/json">
+                  <button id="createBackup" class="button subtle" type="button">Create local backup</button>
+                </div>
+                <div id="backupList" class="mini-list"></div>
+              </article>
+
+              <article class="card danger-zone">
+                <p class="eyebrow">Reset</p>
+                <h3>Data recovery controls</h3>
+                <p class="muted">All data is stored in this browser using Local Storage. Export JSON before resetting if you need a copy.</p>
+                <button id="resetAllData" class="button danger" type="button">Reset all data</button>
+              </article>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
     <script src="app.js"></script>
   </body>
 </html>
