@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#16846d">
+    <title>Daily Useful Tools</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Daily workspace</p>
+        <h1>Daily Useful Tools</h1>
+      </div>
+      <div class="top-actions">
+        <div class="clock" aria-live="polite">
+          <strong id="timeNow">--:--</strong>
+          <span id="dateNow">Today</span>
+        </div>
+        <button id="themeToggle" class="button ghost" type="button">Dark</button>
+      </div>
+    </header>
+
+    <main class="app-shell">
+      <aside class="side-panel">
+        <label class="search-label" for="toolSearch">Find a tool</label>
+        <input id="toolSearch" class="input" type="search" placeholder="Search tools...">
+        <nav class="tool-nav" aria-label="Tools">
+          <a href="#tasks">Tasks</a>
+          <a href="#notes">Notes</a>
+          <a href="#calculator">Calculator</a>
+          <a href="#converter">Converter</a>
+          <a href="#money">Money</a>
+          <a href="#timer">Timer</a>
+          <a href="#password">Password</a>
+          <a href="#text">Text</a>
+          <a href="#decision">Decision</a>
+        </nav>
+      </aside>
+
+      <section class="tool-grid" id="tools">
+        <article class="tool-card wide" id="tasks" data-tool="tasks checklist todo today">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow">Plan</p>
+              <h2>Task List</h2>
+            </div>
+            <button id="clearDone" class="button subtle" type="button">Clear done</button>
+          </div>
+          <form id="taskForm" class="inline-form">
+            <input id="taskInput" class="input" type="text" placeholder="Add a task for today" autocomplete="off">
+            <button class="button primary" type="submit">Add</button>
+          </form>
+          <div class="segmented" role="group" aria-label="Task filter">
+            <button class="segment active" type="button" data-filter="all">All</button>
+            <button class="segment" type="button" data-filter="open">Open</button>
+            <button class="segment" type="button" data-filter="done">Done</button>
+          </div>
+          <ul id="taskList" class="task-list" aria-live="polite"></ul>
+          <p id="taskEmpty" class="empty-state">No tasks yet. Add one and make the day behave.</p>
+        </article>
+
+        <article class="tool-card wide" id="notes" data-tool="notes memo writing save copy">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow">Capture</p>
+              <h2>Quick Notes</h2>
+            </div>
+            <div class="button-row">
+              <button id="copyNote" class="button subtle" type="button">Copy</button>
+              <button id="clearNote" class="button ghost" type="button">Clear</button>
+            </div>
+          </div>
+          <textarea id="notePad" class="textarea note-area" placeholder="Write anything you need to remember..."></textarea>
+          <p class="status-line"><span id="noteStatus">Saved locally</span><span id="noteCount">0 words</span></p>
+        </article>
+
+        <article class="tool-card" id="calculator" data-tool="calculator maths arithmetic percentage">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow">Numbers</p>
+              <h2>Calculator</h2>
+            </div>
+            <button id="calcClear" class="button ghost" type="button">C</button>
+          </div>
+          <input id="calcDisplay" class="input calc-display" type="text" inputmode="decimal" aria-label="Calculator display" placeholder="0">
+          <div class="calc-grid" aria-label="Calculator buttons">
+            <button type="button" data-calc="7">7</button>
+            <button type="button" data-calc="8">8</button>
+            <button type="button" data-calc="9">9</button>
+            <button type="button" data-calc="/">/</button>
+            <button type="button" data-calc="4">4</button>
+            <button type="button" data-calc="5">5</button>
+            <button type="button" data-calc="6">6</button>
+            <button type="button" data-calc="*">x</button>
+            <button type="button" data-calc="1">1</button>
+            <button type="button" data-calc="2">2</button>
+            <button type="button" data-calc="3">3</button>
+            <button type="button" data-calc="-">-</button>
+            <button type="button" data-calc="0">0</button>
+            <button type="button" data-calc=".">.</button>
+            <button type="button" data-calc="=" class="accent">=</button>
+            <button type="button" data-calc="+">+</button>
+          </div>
+        </article>
+
+        <article class="tool-card" id="converter" data-tool="unit converter length weight temperature">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow">Convert</p>
+              <h2>Unit Converter</h2>
+            </div>
+          </div>
+          <label class="field-label" for="convertType">Type</label>
+          <select id="convertType" class="input">
+            <option value="length">Length</option>
+            <option value="weight">Weight</option>
+            <option value="temperature">Temperature</option>
+          </select>
+          <div class="split">
+            <div>
+              <label class="field-label" for="convertInput">From</label>
+              <input id="convertInput" class="input" type="number" value="1" step="any">
+              <select id="fromUnit" class="input compact"></select>
+            </div>
+            <div>
+              <label class="field-label" for="convertOutput">To</label>
+              <input id="convertOutput" class="input" type="text" readonly>
+              <select id="toUnit" class="input compact"></select>
+            </div>
+          </div>
+        </article>
+
+        <article class="tool-card" id="money" data-tool="money tip split bill expense percentage">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow">Money</p>
+              <h2>Tip and Split</h2>
+            </div>
+          </div>
+          <div class="form-stack">
+            <label class="field-label" for="billAmount">Bill amount</label>
+            <input id="billAmount" class="input" type="number" min="0" step="0.01" placeholder="0.00">
+            <label class="field-label" for="tipPercent">Tip percent</label>
+            <input id="tipPercent" class="input" type="number" min="0" step="1" value="10">
+            <label class="field-label" for="splitPeople">People</label>
+            <input id="splitPeople" class="input" type="number" min="1" step="1" value="1">
+          </div>
+          <div class="result-box">
+            <span>Tip: <strong id="tipResult">0.00</strong></span>
+            <span>Total: <strong id="totalResult">0.00</strong></span>
+            <span>Each: <strong id="eachResult">0.00</strong></span>
+          </div>
+        </article>
+
+        <article class="tool-card wide" id="timer" data-tool="timer stopwatch focus countdown laps">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow">Focus</p>
+              <h2>Timer and Stopwatch</h2>
+            </div>
+          </div>
+          <div class="two-tools">
+            <section aria-labelledby="timerTitle">
+              <h3 id="timerTitle">Countdown</h3>
+              <div class="timer-display" id="timerDisplay">05:00</div>
+              <div class="inline-form">
+                <input id="timerMinutes" class="input" type="number" min="1" value="5" aria-label="Timer minutes">
+                <button id="timerStart" class="button primary" type="button">Start</button>
+                <button id="timerReset" class="button ghost" type="button">Reset</button>
+              </div>
+            </section>
+            <section aria-labelledby="stopwatchTitle">
+              <h3 id="stopwatchTitle">Stopwatch</h3>
+              <div class="timer-display" id="stopwatchDisplay">00:00.0</div>
+              <div class="button-row">
+                <button id="stopwatchStart" class="button primary" type="button">Start</button>
+                <button id="stopwatchLap" class="button subtle" type="button">Lap</button>
+                <button id="stopwatchReset" class="button ghost" type="button">Reset</button>
+              </div>
+              <ol id="lapList" class="lap-list"></ol>
+            </section>
+          </div>
+        </article>
+
+        <article class="tool-card" id="password" data-tool="password generator security random">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow">Secure</p>
+              <h2>Password Generator</h2>
+            </div>
+            <button id="copyPassword" class="button subtle" type="button">Copy</button>
+          </div>
+          <input id="passwordOutput" class="input mono" type="text" readonly>
+          <label class="field-label" for="passwordLength">Length: <span id="passwordLengthValue">16</span></label>
+          <input id="passwordLength" class="range" type="range" min="8" max="40" value="16">
+          <div class="check-grid">
+            <label><input id="useUpper" type="checkbox" checked> Uppercase</label>
+            <label><input id="useLower" type="checkbox" checked> Lowercase</label>
+            <label><input id="useNumbers" type="checkbox" checked> Numbers</label>
+            <label><input id="useSymbols" type="checkbox" checked> Symbols</label>
+          </div>
+          <button id="generatePassword" class="button primary full" type="button">Generate</button>
+        </article>
+
+        <article class="tool-card wide" id="text" data-tool="text tools word count uppercase lowercase sentence copy">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow">Write</p>
+              <h2>Text Tools</h2>
+            </div>
+            <button id="copyText" class="button subtle" type="button">Copy</button>
+          </div>
+          <textarea id="textInput" class="textarea" placeholder="Paste text here..."></textarea>
+          <div class="button-row wrap">
+            <button class="button subtle" type="button" data-text-action="upper">UPPERCASE</button>
+            <button class="button subtle" type="button" data-text-action="lower">lowercase</button>
+            <button class="button subtle" type="button" data-text-action="title">Title Case</button>
+            <button class="button ghost" type="button" data-text-action="trim">Trim spaces</button>
+          </div>
+          <p class="status-line"><span id="textStats">0 chars, 0 words</span><span id="readingTime">0 min read</span></p>
+        </article>
+
+        <article class="tool-card" id="decision" data-tool="decision picker random choice list">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow">Choose</p>
+              <h2>Decision Picker</h2>
+            </div>
+          </div>
+          <textarea id="decisionInput" class="textarea small" placeholder="Tea&#10;Coffee&#10;Juice"></textarea>
+          <button id="pickDecision" class="button primary full" type="button">Pick one</button>
+          <div id="decisionResult" class="result-highlight">Add options, then pick.</div>
+        </article>
+
+        <p id="noTools" class="empty-state hidden">No tools match that search.</p>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
